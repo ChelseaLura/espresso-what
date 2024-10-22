@@ -1,6 +1,24 @@
 # espresso-what
 
-This template should help get you started developing with Vue 3 in Vite.
+I love coffee, specifically espresso. This application allows users to visualize the different parts of espresso drinks,
+in order to learn more about different drinks they could order at a cafe.
+
+#### Story Time
+
+I ordered a cappucino at a cool local coffee shop, and proceeded to scoop the foam off, because I wasn't really a fan.
+This prompted my friend to ask, why I ordered one in the first place, since cappucinos are purposefully made with more foam.
+I was caught red-handed, I had know idea what any of the words on the menu meant, and had just picked one randomly. >\_<
+This app is for past me to understand what all those, mostly Italian, words meant.
+
+## Let's get technical!
+
+I built this project as a showcase of skills to prove I can learn things quickly.
+I haven't written any Vue in over 3 years, and it was in Vue2 back then.
+I've never used many of the tools included, but they were reccomended within Vue's documentation so I wanted to try them out.
+You'll notice from the code there are several arbitrary API calls or added complexity that this app genuinely wouldn't need.
+However in order to show case my understanding of these concepts they are a bit shoe-horned in.
+
+## Default Create-Vue ReadMe:
 
 ## Recommended IDE Setup
 
