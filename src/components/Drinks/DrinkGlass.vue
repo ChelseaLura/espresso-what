@@ -8,10 +8,6 @@ interface DrinkGlassProps {
 
 const { selectedDrink = LATTE_DRINK_DISPLAY } = defineProps<DrinkGlassProps>()
 
-// withDefaults(defineProps<DrinkGlassProps>(), {
-//   selectedDrink: LATTE_DRINK_DISPLAY,
-// })
-
 function drinkPartClassGenerator(drinkPart: DrinkPart): string {
   let partClasses = 'drink-part'
   if (drinkPart.name !== '') {
