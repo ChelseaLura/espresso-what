@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 type Portion = 1 | 2 | 3 | 4 | 5 | 6
 enum Ingredient {
   ESPRESSO = 'espresso',
@@ -13,6 +15,13 @@ const IngredientColors: Record<Ingredient, string> = {
   'milk foam': '#FFF9F3',
   water: '#C5F1F5',
   'drip-coffee': '#120902',
+}
+const IngredientTextColors: Record<Ingredient, string> = {
+  espresso: '#FFF9F3',
+  'steamed milk': '#361A07',
+  'milk foam': '#361A07',
+  water: '#361A07',
+  'drip-coffee': '#FFF9F3',
 }
 
 interface IngredientFormula {
@@ -29,6 +38,7 @@ interface DrinkRecipe {
 interface DrinkPart {
   color: string
   name: string
+  textColor: string
 }
 
 const drinks: Array<DrinkRecipe> = [
@@ -69,6 +79,97 @@ const drinks: Array<DrinkRecipe> = [
       },
     ],
   },
+  {
+    id: '21407e24-c394-423c-80e9-348b8325979a',
+    name: 'macchiato',
+    ingredients: [
+      {
+        name: Ingredient.ESPRESSO,
+        portion: 2,
+        order: 1,
+      },
+      {
+        name: Ingredient.FOAM,
+        portion: 1,
+        order: 2,
+      },
+    ],
+  },
+  {
+    id: '62d9136d-c831-4abf-9f6c-271c3f4c67f8',
+    name: 'americano',
+    ingredients: [
+      {
+        name: Ingredient.WATER,
+        portion: 4,
+        order: 1,
+      },
+      {
+        name: Ingredient.ESPRESSO,
+        portion: 2,
+        order: 2,
+      },
+    ],
+  },
+  {
+    id: '8819c873-c7ae-40fe-9830-a4c95f888079',
+    name: 'espresso',
+    ingredients: [
+      {
+        name: Ingredient.ESPRESSO,
+        portion: 2,
+        order: 1,
+      },
+    ],
+  },
+  {
+    id: '2a51fe9d-7339-421b-8922-da9515c4e95c',
+    name: 'cortado',
+    ingredients: [
+      {
+        name: Ingredient.ESPRESSO,
+        portion: 2,
+        order: 1,
+      },
+      {
+        name: Ingredient.MILK,
+        portion: 2,
+        order: 2,
+      },
+    ],
+  },
+  {
+    id: 'a361676f-0fd7-4723-9a44-d4c9e86e0672',
+    name: 'cafe au lait',
+    ingredients: [
+      {
+        name: Ingredient.COFFEE,
+        portion: 5,
+        order: 1,
+      },
+      {
+        name: Ingredient.MILK,
+        portion: 1,
+        order: 2,
+      },
+    ],
+  },
+  {
+    id: '092876bd-b1e2-421e-b145-571f05fcb8d0',
+    name: 'red eye',
+    ingredients: [
+      {
+        name: Ingredient.COFFEE,
+        portion: 4,
+        order: 1,
+      },
+      {
+        name: Ingredient.ESPRESSO,
+        portion: 2,
+        order: 2,
+      },
+    ],
+  },
 ]
 
 function drinkPartClassGenerator(drinkPart: DrinkPart): string {
@@ -91,6 +192,7 @@ function createDrinkDisplay(
         drinkParts.push({
           name: ingredient.name,
           color: IngredientColors[ingredient.name],
+          textColor: IngredientTextColors[ingredient.name],
         })
       }
     })
@@ -103,6 +205,7 @@ function createDrinkDisplay(
         drinkParts.push({
           name: '',
           color: 'transparent',
+          textColor: 'transparent',
         })
       }
     }
@@ -110,9 +213,15 @@ function createDrinkDisplay(
   })
   return drinkDisplays
 }
+
+function setDrinkDisplay(drinkName: string) {
+  console.log('clicked with: ', drinkName)
+  selectedDrink.value = drinkDisplays[drinkName]
+}
+
 const drinkDisplays = createDrinkDisplay(drinks)
 console.log(drinkDisplays)
-const selectedDrink: Array<DrinkPart> = drinkDisplays['cappucino']
+const selectedDrink = ref(drinkDisplays['cappucino'])
 </script>
 
 <template>
@@ -126,16 +235,27 @@ const selectedDrink: Array<DrinkPart> = drinkDisplays['cappucino']
           v-for="(drinkPart, index) in selectedDrink"
           v-bind:key="index"
           :class="drinkPartClassGenerator(drinkPart)"
-          :style="{ 'background-color': drinkPart.color }"
+          :style="{
+            'background-color': drinkPart.color,
+            color: drinkPart.textColor,
+          }"
         >
           {{ drinkPart.name }}
         </div>
       </div>
     </div>
-    <div>
+    <div class="drink-options-panel">
       <p>drink options</p>
-      <div v-for="drink of drinks" v-bind:key="drink.id">
-        <button>{{ drink.name }}</button>
+      <div class="drink-options-container">
+        <button
+          v-for="drink in drinks"
+          :key="drink.id"
+          class="drink-option"
+          type="button"
+          @click="setDrinkDisplay(drink.name)"
+        >
+          {{ drink.name }}
+        </button>
       </div>
     </div>
   </div>
@@ -146,10 +266,17 @@ h1 {
   color: #120902;
   margin-bottom: 50px;
 }
+p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #361a07;
+  margin-bottom: 10px;
+}
 .page-container {
   display: flex;
   width: 100%;
   flex-direction: row;
+  gap: 20px;
 }
 .drink-container {
   position: relative;
@@ -190,10 +317,35 @@ h1 {
 .drink-part {
   height: 50px;
   width: 212px;
+  text-align: center;
 }
 .drink-part-border {
   border-left: 2px solid #2a5c59;
   border-right: 2px solid #2a5c59;
+}
+.drink-option {
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 2px solid #0a0501;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 2px 16px;
+  height: 38px;
+  min-width: 96px;
+  min-height: 38px;
+  color: #120902;
+  background-color: var(--color-background);
+}
+.drink-option:hover {
+  background-color: #efd9a9;
+}
+.drink-options-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px;
+  gap: 10px;
 }
 </style>
 <!-- Notes -->
