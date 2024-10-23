@@ -41,10 +41,17 @@ interface DrinkPart {
   textColor: string
 }
 
+interface DrinkDisplay {
+  id: string
+  name: string
+  drinkParts: Array<DrinkPart>
+  funFact?: string
+}
+
 const drinks: Array<DrinkRecipe> = [
   {
     id: '2b8bbfd9-cfa1-4550-a50f-da08b265262f',
-    name: 'latte',
+    name: 'Latte',
     ingredients: [
       {
         name: Ingredient.ESPRESSO,
@@ -60,7 +67,7 @@ const drinks: Array<DrinkRecipe> = [
   },
   {
     id: '7ed6dbc1-bf28-4350-8e80-97d7097b9d0f',
-    name: 'cappucino',
+    name: 'Cappucino',
     ingredients: [
       {
         name: Ingredient.ESPRESSO,
@@ -81,7 +88,7 @@ const drinks: Array<DrinkRecipe> = [
   },
   {
     id: '21407e24-c394-423c-80e9-348b8325979a',
-    name: 'macchiato',
+    name: 'Macchiato',
     ingredients: [
       {
         name: Ingredient.ESPRESSO,
@@ -97,7 +104,7 @@ const drinks: Array<DrinkRecipe> = [
   },
   {
     id: '62d9136d-c831-4abf-9f6c-271c3f4c67f8',
-    name: 'americano',
+    name: 'Americano',
     ingredients: [
       {
         name: Ingredient.WATER,
@@ -113,7 +120,7 @@ const drinks: Array<DrinkRecipe> = [
   },
   {
     id: '8819c873-c7ae-40fe-9830-a4c95f888079',
-    name: 'espresso',
+    name: 'Espresso',
     ingredients: [
       {
         name: Ingredient.ESPRESSO,
@@ -124,7 +131,7 @@ const drinks: Array<DrinkRecipe> = [
   },
   {
     id: '2a51fe9d-7339-421b-8922-da9515c4e95c',
-    name: 'cortado',
+    name: 'Cortado',
     ingredients: [
       {
         name: Ingredient.ESPRESSO,
@@ -140,7 +147,7 @@ const drinks: Array<DrinkRecipe> = [
   },
   {
     id: 'a361676f-0fd7-4723-9a44-d4c9e86e0672',
-    name: 'cafe au lait',
+    name: 'Cafe Au Lait',
     ingredients: [
       {
         name: Ingredient.COFFEE,
@@ -156,7 +163,7 @@ const drinks: Array<DrinkRecipe> = [
   },
   {
     id: '092876bd-b1e2-421e-b145-571f05fcb8d0',
-    name: 'red eye',
+    name: 'Red Eye',
     ingredients: [
       {
         name: Ingredient.COFFEE,
@@ -182,8 +189,8 @@ function drinkPartClassGenerator(drinkPart: DrinkPart): string {
 
 function createDrinkDisplay(
   drinks: Array<DrinkRecipe>,
-): Record<string, Array<DrinkPart>> {
-  const drinkDisplays: Record<string, Array<DrinkPart>> = {}
+): Record<string, DrinkDisplay> {
+  const drinkDisplays: Record<string, DrinkDisplay> = {}
   drinks.forEach(drink => {
     const drinkParts: Array<DrinkPart> = []
     // TODO: Add more logic to make sure drink cannot be more than 6 parts
@@ -196,7 +203,6 @@ function createDrinkDisplay(
         })
       }
     })
-    console.log(drinkParts.length)
     if (drinkParts.length > 6) {
       throw new Error('too many ingredients')
     }
@@ -209,48 +215,59 @@ function createDrinkDisplay(
         })
       }
     }
-    drinkDisplays[drink.name] = drinkParts.reverse()
+    drinkDisplays[drink.name] = {
+      id: drink.id,
+      name: drink.name,
+      drinkParts: drinkParts.reverse(),
+      funFact: drink.funFact ? drink.funFact : '',
+    }
   })
   return drinkDisplays
 }
 
 function setDrinkDisplay(drinkName: string) {
-  console.log('clicked with: ', drinkName)
   selectedDrink.value = drinkDisplays[drinkName]
 }
 
 const drinkDisplays = createDrinkDisplay(drinks)
-console.log(drinkDisplays)
-const selectedDrink = ref(drinkDisplays['cappucino'])
+const selectedDrink = ref(drinkDisplays['Latte'])
 </script>
 
 <template>
+  <!-- TODO: add aria tags and go over accessiibility -->
   <h1>Espresso What???</h1>
   <div class="page-container">
-    <div class="drink-container">
-      <div class="glass"></div>
-      <div class="internal-glass"></div>
-      <div class="part-container">
-        <div
-          v-for="(drinkPart, index) in selectedDrink"
-          v-bind:key="index"
-          :class="drinkPartClassGenerator(drinkPart)"
-          :style="{
-            'background-color': drinkPart.color,
-            color: drinkPart.textColor,
-          }"
-        >
-          {{ drinkPart.name }}
+    <div class="drink-display-container">
+      <h3>{{ selectedDrink.name }}</h3>
+      <div class="drink-container">
+        <div class="glass"></div>
+        <div class="internal-glass"></div>
+        <div class="part-container">
+          <div
+            v-for="(drinkPart, index) in selectedDrink.drinkParts"
+            v-bind:key="index"
+            :class="drinkPartClassGenerator(drinkPart)"
+            :style="{
+              'background-color': drinkPart.color,
+              color: drinkPart.textColor,
+            }"
+          >
+            {{ drinkPart.name }}
+          </div>
         </div>
       </div>
     </div>
     <div class="drink-options-panel">
-      <p>drink options</p>
+      <p>Cafe Drink Options</p>
       <div class="drink-options-container">
+        <!-- TODO: read more on conditional styling https://vuejs.org/guide/essentials/class-and-style.html -->
         <button
           v-for="drink in drinks"
           :key="drink.id"
-          class="drink-option"
+          :class="[
+            drink.name === selectedDrink.name ? 'selected-drink-option' : '',
+            'drink-option',
+          ]"
           type="button"
           @click="setDrinkDisplay(drink.name)"
         >
@@ -266,6 +283,13 @@ h1 {
   color: #120902;
   margin-bottom: 50px;
 }
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #361a07;
+  margin-bottom: 20px;
+  text-align: center;
+}
 p {
   font-size: 18px;
   font-weight: 600;
@@ -276,11 +300,11 @@ p {
   display: flex;
   width: 100%;
   flex-direction: row;
-  gap: 20px;
+  gap: 50px;
 }
 .drink-container {
   position: relative;
-  width: 400px;
+  width: 350px;
 }
 .glass {
   /* TODO: Add variables for sizing, extract out similar styles */
@@ -339,6 +363,10 @@ p {
   background-color: var(--color-background);
 }
 .drink-option:hover {
+  background-color: #efd9a9;
+}
+.selected-drink-option {
+  /* TODO: see if they have 'darken() methods to use here' */
   background-color: #efd9a9;
 }
 .drink-options-container {
