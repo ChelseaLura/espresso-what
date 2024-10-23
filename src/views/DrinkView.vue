@@ -1,191 +1,14 @@
 <script setup lang="ts">
+import DrinkGlass from '@/components/Drinks/DrinkGlass.vue'
+import { INGREDIENT_COLORS, INGREDIENT_TEXT_COLORS } from '@/utility/constants'
+import { test_drink_recipes } from '@/utility/testData'
+import {
+  type DrinkRecipe,
+  type DrinkPart,
+  type DrinkDisplay,
+} from '@/utility/types'
+
 import { ref } from 'vue'
-
-type Portion = 1 | 2 | 3 | 4 | 5 | 6
-enum Ingredient {
-  ESPRESSO = 'espresso',
-  MILK = 'steamed milk',
-  FOAM = 'milk foam',
-  WATER = 'water',
-  COFFEE = 'drip-coffee',
-}
-const IngredientColors: Record<Ingredient, string> = {
-  espresso: '#361A07',
-  'steamed milk': '#FFF9F3',
-  'milk foam': '#FFF9F3',
-  water: '#C5F1F5',
-  'drip-coffee': '#120902',
-}
-const IngredientTextColors: Record<Ingredient, string> = {
-  espresso: '#FFF9F3',
-  'steamed milk': '#361A07',
-  'milk foam': '#361A07',
-  water: '#361A07',
-  'drip-coffee': '#FFF9F3',
-}
-
-interface IngredientFormula {
-  portion: Portion
-  name: Ingredient
-  order: number
-}
-interface DrinkRecipe {
-  id: string
-  name: string
-  ingredients: Array<IngredientFormula>
-  funFact?: string
-}
-interface DrinkPart {
-  color: string
-  name: string
-  textColor: string
-}
-
-interface DrinkDisplay {
-  id: string
-  name: string
-  drinkParts: Array<DrinkPart>
-  funFact?: string
-}
-
-const drinks: Array<DrinkRecipe> = [
-  {
-    id: '2b8bbfd9-cfa1-4550-a50f-da08b265262f',
-    name: 'Latte',
-    ingredients: [
-      {
-        name: Ingredient.ESPRESSO,
-        portion: 2,
-        order: 1,
-      },
-      {
-        name: Ingredient.MILK,
-        portion: 3,
-        order: 2,
-      },
-    ],
-  },
-  {
-    id: '7ed6dbc1-bf28-4350-8e80-97d7097b9d0f',
-    name: 'Cappucino',
-    ingredients: [
-      {
-        name: Ingredient.ESPRESSO,
-        portion: 2,
-        order: 1,
-      },
-      {
-        name: Ingredient.MILK,
-        portion: 2,
-        order: 2,
-      },
-      {
-        name: Ingredient.FOAM,
-        portion: 1,
-        order: 3,
-      },
-    ],
-  },
-  {
-    id: '21407e24-c394-423c-80e9-348b8325979a',
-    name: 'Macchiato',
-    ingredients: [
-      {
-        name: Ingredient.ESPRESSO,
-        portion: 2,
-        order: 1,
-      },
-      {
-        name: Ingredient.FOAM,
-        portion: 1,
-        order: 2,
-      },
-    ],
-  },
-  {
-    id: '62d9136d-c831-4abf-9f6c-271c3f4c67f8',
-    name: 'Americano',
-    ingredients: [
-      {
-        name: Ingredient.WATER,
-        portion: 4,
-        order: 1,
-      },
-      {
-        name: Ingredient.ESPRESSO,
-        portion: 2,
-        order: 2,
-      },
-    ],
-  },
-  {
-    id: '8819c873-c7ae-40fe-9830-a4c95f888079',
-    name: 'Espresso',
-    ingredients: [
-      {
-        name: Ingredient.ESPRESSO,
-        portion: 2,
-        order: 1,
-      },
-    ],
-  },
-  {
-    id: '2a51fe9d-7339-421b-8922-da9515c4e95c',
-    name: 'Cortado',
-    ingredients: [
-      {
-        name: Ingredient.ESPRESSO,
-        portion: 2,
-        order: 1,
-      },
-      {
-        name: Ingredient.MILK,
-        portion: 2,
-        order: 2,
-      },
-    ],
-  },
-  {
-    id: 'a361676f-0fd7-4723-9a44-d4c9e86e0672',
-    name: 'Cafe Au Lait',
-    ingredients: [
-      {
-        name: Ingredient.COFFEE,
-        portion: 5,
-        order: 1,
-      },
-      {
-        name: Ingredient.MILK,
-        portion: 1,
-        order: 2,
-      },
-    ],
-  },
-  {
-    id: '092876bd-b1e2-421e-b145-571f05fcb8d0',
-    name: 'Red Eye',
-    ingredients: [
-      {
-        name: Ingredient.COFFEE,
-        portion: 4,
-        order: 1,
-      },
-      {
-        name: Ingredient.ESPRESSO,
-        portion: 2,
-        order: 2,
-      },
-    ],
-  },
-]
-
-function drinkPartClassGenerator(drinkPart: DrinkPart): string {
-  let partClasses = 'drink-part'
-  if (drinkPart.name !== '') {
-    partClasses += ' drink-part-border'
-  }
-  return partClasses
-}
 
 function createDrinkDisplay(
   drinks: Array<DrinkRecipe>,
@@ -198,12 +21,13 @@ function createDrinkDisplay(
       for (let i = 1; i <= ingredient.portion; i++) {
         drinkParts.push({
           name: ingredient.name,
-          color: IngredientColors[ingredient.name],
-          textColor: IngredientTextColors[ingredient.name],
+          color: INGREDIENT_COLORS[ingredient.name],
+          textColor: INGREDIENT_TEXT_COLORS[ingredient.name],
         })
       }
     })
     if (drinkParts.length > 6) {
+      // TODO: real error handling
       throw new Error('too many ingredients')
     }
     if (drinkParts.length < 6) {
@@ -229,7 +53,7 @@ function setDrinkDisplay(drinkName: string) {
   selectedDrink.value = drinkDisplays[drinkName]
 }
 
-const drinkDisplays = createDrinkDisplay(drinks)
+const drinkDisplays = createDrinkDisplay(test_drink_recipes)
 const selectedDrink = ref(drinkDisplays['Latte'])
 </script>
 
@@ -239,30 +63,14 @@ const selectedDrink = ref(drinkDisplays['Latte'])
   <div class="page-container">
     <div class="drink-display-container">
       <h3>{{ selectedDrink.name }}</h3>
-      <div class="drink-container">
-        <div class="glass"></div>
-        <div class="internal-glass"></div>
-        <div class="part-container">
-          <div
-            v-for="(drinkPart, index) in selectedDrink.drinkParts"
-            v-bind:key="index"
-            :class="drinkPartClassGenerator(drinkPart)"
-            :style="{
-              'background-color': drinkPart.color,
-              color: drinkPart.textColor,
-            }"
-          >
-            {{ drinkPart.name }}
-          </div>
-        </div>
-      </div>
+      <DrinkGlass :selected-drink="selectedDrink" />
     </div>
     <div class="drink-options-panel">
       <p>Cafe Drink Options</p>
       <div class="drink-options-container">
         <!-- TODO: read more on conditional styling https://vuejs.org/guide/essentials/class-and-style.html -->
         <button
-          v-for="drink in drinks"
+          v-for="drink in test_drink_recipes"
           :key="drink.id"
           :class="[
             drink.name === selectedDrink.name ? 'selected-drink-option' : '',
@@ -279,6 +87,8 @@ const selectedDrink = ref(drinkDisplays['Latte'])
 </template>
 
 <style>
+/* TODO: use space and size reference system and switch to REM for text; */
+
 h1 {
   color: #120902;
   margin-bottom: 50px;
@@ -356,9 +166,8 @@ p {
   font-weight: 500;
   line-height: 16px;
   padding: 2px 16px;
-  height: 38px;
-  min-width: 96px;
-  min-height: 38px;
+  height: 40px;
+  width: 120px;
   color: #120902;
   background-color: var(--color-background);
 }
@@ -372,7 +181,7 @@ p {
 .drink-options-container {
   display: flex;
   flex-wrap: wrap;
-  max-width: 500px;
+  max-width: 550px;
   gap: 10px;
 }
 </style>
