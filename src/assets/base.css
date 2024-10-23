@@ -1,56 +1,32 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  --cafe-black: #0a0501;
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
-
-  --vt-c-indigo: #2c3e50;
-
-  --cafe-background: #f6e9cd;
-
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  --cafe-soft-parchment: #f6e9cd;
+  --cafe-soft-parchment-dark: #efd9a9;
+  --cafe-espresso-brown: #361a07;
+  --cafe-coffee-brown: #120902;
+  --cafe-milky-white: #fff9f3;
+  --cafe-accent-color: #2a5c59;
 }
 
-/* semantic color variables for this project */
 :root {
-  --color-background: var(--cafe-background);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
+  --color-background: var(--cafe-soft-parchment);
+  --color-background-darken: var(--cafe-soft-parchment-dark);
 
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
+  --color-border: var(--cafe-black);
+  --color-accent-border: var(--cafe-accent-color);
 
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
+  --color-text-dark: var(--cafe-espresso-brown);
+  --color-text-dark-2: var(--cafe-coffee-brown);
+  --color-text-light: var(--cafe-milky-white);
 
-  --section-gap: 160px;
+  --border-radius: 3px;
+
+  --gap-small: 10px;
+  --gap-medium: 20px;
+  --gap-large: 50px;
 }
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-  }
-} */
 
 *,
 *::before,
@@ -60,6 +36,7 @@
   font-weight: normal;
 }
 
+/* TODO: find a better free font */
 body {
   min-height: 100vh;
   color: var(--color-text);
@@ -81,8 +58,27 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
+  font-size: 1rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  color: var(--cafe-text-dark-2);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: var(--gap-large);
+}
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--cafe-text-dark);
+  margin-bottom: var(--gap-medium);
+}
+p {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--cafe-text-dark);
+  margin-bottom: var(--gap-small);
 }

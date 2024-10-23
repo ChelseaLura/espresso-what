@@ -86,103 +86,45 @@ const selectedDrink = ref(drinkDisplays['Latte'])
   </div>
 </template>
 
-<style>
+<style scoped>
 /* TODO: use space and size reference system and switch to REM for text; */
 
-h1 {
-  color: #120902;
-  margin-bottom: 50px;
-}
-h3 {
-  font-size: 20px;
-  font-weight: 600;
-  color: #361a07;
-  margin-bottom: 20px;
-  text-align: center;
-}
-p {
-  font-size: 18px;
-  font-weight: 600;
-  color: #361a07;
-  margin-bottom: 10px;
-}
 .page-container {
   display: flex;
   width: 100%;
   flex-direction: row;
-  gap: 50px;
+  gap: var(--gap-large);
 }
-.drink-container {
-  position: relative;
-  width: 350px;
-}
-.glass {
-  /* TODO: Add variables for sizing, extract out similar styles */
-  position: absolute;
-  border-top: 350px solid #2a5c59;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  height: 0;
-  width: 350px;
-}
-.internal-glass {
-  position: absolute;
-  z-index: 2;
-  top: 3px;
-  left: 4px;
-
-  border-top: 336px solid var(--color-background);
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  height: 0;
-  width: 336px;
-}
-.part-container {
-  z-index: 3;
-  position: relative;
-  top: 25px;
-  left: 66px;
-  :last-child {
-    border-bottom-left-radius: 30%;
-    border-bottom-right-radius: 30%;
-    border-bottom: 2px solid #2a5c59;
-  }
-}
-.drink-part {
-  height: 50px;
-  width: 212px;
-  text-align: center;
-}
-.drink-part-border {
-  border-left: 2px solid #2a5c59;
-  border-right: 2px solid #2a5c59;
+.drink-display-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .drink-option {
   display: inline-block;
   cursor: pointer;
-  border-radius: 3px;
-  border: 2px solid #0a0501;
-  font-size: 14px;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--color-border);
+  font-size: 0.875rem;
   font-weight: 500;
-  line-height: 16px;
   padding: 2px 16px;
   height: 40px;
   width: 120px;
-  color: #120902;
+  color: var(--color-text-dark);
   background-color: var(--color-background);
 }
 .drink-option:hover {
-  background-color: #efd9a9;
+  background-color: var(--color-background-darken);
 }
 .selected-drink-option {
   /* TODO: see if they have 'darken() methods to use here' */
-  background-color: #efd9a9;
+  background-color: var(--color-background-darken);
 }
 .drink-options-container {
   display: flex;
   flex-wrap: wrap;
   max-width: 550px;
-  gap: 10px;
+  gap: var(--gap-small);
 }
 </style>
 <!-- Notes -->
