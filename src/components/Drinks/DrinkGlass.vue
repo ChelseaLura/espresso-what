@@ -13,6 +13,9 @@ function drinkPartClassGenerator(drinkPart: DrinkPart): string {
   if (drinkPart.name !== '') {
     partClasses += ' drink-part-border'
   }
+  if (drinkPart.name === 'milk foam') {
+    partClasses += ' foam-topping'
+  }
   return partClasses
 }
 </script>
@@ -84,4 +87,23 @@ function drinkPartClassGenerator(drinkPart: DrinkPart): string {
   border-left: 2px solid var(--color-accent-border);
   border-right: 2px solid var(--color-accent-border);
 }
+
+.foam-topping {
+  --mask: radial-gradient(21.47px at 50% 29px, #000 99%, #0000 101%)
+      calc(50% - 20px) 0/40px 100%,
+    radial-gradient(21.47px at 50% -19px, #0000 99%, #000 101%) 50% 10px/40px
+      100% repeat-x;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 10px;
+}
 </style>
+
+<!-- CSS Waves  -->
+<!-- I love the CSSTricks website, and they have a blogpost for making
+wave patterns: https://css-tricks.com/how-to-create-wavy-shapes-patterns-in-css/
+by Temani Afif. They also have a wave generator tool, which I used:
+https://css-generators.com/wavy-shapes/  -->

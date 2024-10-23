@@ -133,9 +133,3 @@ const selectedDrink = ref(drinkDisplays['Latte'])
 <!-- The drink image was heavily inspired by the design found on this blog post
 https://blog.mistobox.com/espresso-coffee-drinks/ by Tyler Schultz. 
 The artist for the image itself was unlisted.  -->
-
-<!-- CSS Waves  -->
-<!-- I love the CSSTricks website, and they have a blogpost for making
-wave patterns: https://css-tricks.com/how-to-create-wavy-shapes-patterns-in-css/
-by Temani Afif. They also have a wave generator tool, which I used:
-https://css-generators.com/wavy-shapes/  -->
