@@ -16,6 +16,7 @@ export const INGREDIENT_COLORS: Record<Ingredient, string> = {
   'milk foam': MILKY_WHITE,
   water: WATER_BLUE,
   'drip-coffee': COFFEE_BROWN,
+  'whipped-cream': MILKY_WHITE,
 }
 
 // TODO: contrast testing
@@ -25,6 +26,7 @@ export const INGREDIENT_TEXT_COLORS: Record<Ingredient, string> = {
   'milk foam': ESPRESSO_BROWN,
   water: ESPRESSO_BROWN,
   'drip-coffee': MILKY_WHITE,
+  'whipped-cream': ESPRESSO_BROWN,
 }
 
 export const LATTE_DRINK_DISPLAY: DrinkDisplay = {

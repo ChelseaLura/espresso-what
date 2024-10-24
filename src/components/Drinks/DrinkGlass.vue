@@ -41,13 +41,19 @@ function drinkPartClassGenerator(drinkPart: DrinkPart): string {
 </template>
 
 <style>
-/* TODO: see if there is a way to make CSS variables scope to a style sheet without using root */
+/* TODO: Look inot issues with absolute positioned styles using 'scoped'*/
 :root {
-  --drink-width: 350px;
+  --drink-size: 350px;
+  --drink-size-mobile: 260px;
 }
 .drink-container {
   position: relative;
-  width: var(--drink-width);
+  width: var(--drink-size);
+  height: var(--drink-size);
+  @media (max-width: 600px) {
+    height: var(--drink-size-mobile);
+    width: var(--drink-size-mobile);
+  }
 }
 .glass {
   position: absolute;
@@ -56,32 +62,51 @@ function drinkPartClassGenerator(drinkPart: DrinkPart): string {
   height: 0;
 }
 .glass-border {
-  border-top: var(--drink-width) solid var(--color-accent-border);
-  width: var(--drink-width);
+  border-top: var(--drink-size) solid var(--color-accent-border);
+  width: var(--drink-size);
+  @media (max-width: 600px) {
+    border-top: var(--drink-size-mobile) solid var(--color-accent-border);
+    width: var(--drink-size-mobile);
+  }
 }
 .internal-glass {
-  --internal-glass-width: 336px;
+  --internal-glass-width: 342px;
   z-index: 2;
   top: 3px;
   left: 4px;
   border-top: var(--internal-glass-width) solid var(--color-background);
   width: var(--internal-glass-width);
+  @media (max-width: 600px) {
+    --internal-glass-width-mobile: 252px;
+    border-top: var(--internal-glass-width-mobile) solid var(--color-background);
+    width: var(--internal-glass-width-mobile);
+  }
 }
 .part-container {
   z-index: 3;
   position: relative;
   top: 25px;
-  left: 66px;
+  left: 63px;
   :last-child {
-    border-bottom-left-radius: 30%;
-    border-bottom-right-radius: 30%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     border-bottom: 2px solid var(--color-accent-border);
+  }
+  @media (max-width: 600px) {
+    top: 12px;
+    left: 58px;
   }
 }
 .drink-part {
-  height: 50px;
-  width: 212px;
-  text-align: center;
+  height: 52px;
+  width: 225px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 600px) {
+    height: 39px;
+    width: 145px;
+  }
 }
 .drink-part-border {
   border-left: 2px solid var(--color-accent-border);
@@ -101,6 +126,13 @@ function drinkPartClassGenerator(drinkPart: DrinkPart): string {
   padding: 10px;
 }
 </style>
+
+<!-- Notes -->
+
+<!-- Design inspiration: -->
+<!-- The drink image was heavily inspired by the design found on this blog post
+https://blog.mistobox.com/espresso-coffee-drinks/ by Tyler Schultz. 
+The artist for the image itself was unlisted.  -->
 
 <!-- CSS Waves  -->
 <!-- I love the CSSTricks website, and they have a blogpost for making

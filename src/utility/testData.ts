@@ -12,7 +12,7 @@ export const test_drink_recipes: Array<DrinkRecipe> = [
       },
       {
         name: Ingredient.MILK,
-        portion: 3,
+        portion: 4,
         order: 2,
       },
     ],
@@ -103,12 +103,12 @@ export const test_drink_recipes: Array<DrinkRecipe> = [
     ingredients: [
       {
         name: Ingredient.COFFEE,
-        portion: 5,
+        portion: 3,
         order: 1,
       },
       {
         name: Ingredient.MILK,
-        portion: 1,
+        portion: 3,
         order: 2,
       },
     ],
@@ -125,6 +125,59 @@ export const test_drink_recipes: Array<DrinkRecipe> = [
       {
         name: Ingredient.ESPRESSO,
         portion: 2,
+        order: 2,
+      },
+    ],
+  },
+  {
+    id: '2a55f20c-8a7e-482c-a11c-6b5a28c9c007',
+    name: 'Espresso Con Panna',
+    ingredients: [
+      {
+        name: Ingredient.ESPRESSO,
+        portion: 2,
+        order: 1,
+      },
+      {
+        name: Ingredient.WHIP_CREAM,
+        portion: 2,
+        order: 2,
+      },
+    ],
+  },
+  {
+    id: '5212a4c2-fde4-40ef-a4a1-dcc2a777661f',
+    name: 'Cafe Hafuch',
+    ingredients: [
+      {
+        name: Ingredient.MILK,
+        portion: 2,
+        order: 1,
+      },
+      {
+        name: Ingredient.ESPRESSO,
+        portion: 2,
+        order: 2,
+      },
+      {
+        name: Ingredient.FOAM,
+        portion: 1,
+        order: 3,
+      },
+    ],
+  },
+  {
+    id: '6fba3836-486d-4f14-86ee-af9e0927371b',
+    name: 'Flat White',
+    ingredients: [
+      {
+        name: Ingredient.ESPRESSO,
+        portion: 2,
+        order: 1,
+      },
+      {
+        name: Ingredient.MILK,
+        portion: 3,
         order: 2,
       },
     ],

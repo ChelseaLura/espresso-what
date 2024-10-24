@@ -9,6 +9,7 @@ export enum Ingredient {
   FOAM = 'milk foam',
   WATER = 'water',
   COFFEE = 'drip-coffee',
+  WHIP_CREAM = 'whipped-cream',
 }
 
 export interface IngredientFormula {

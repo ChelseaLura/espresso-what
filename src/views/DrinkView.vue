@@ -94,11 +94,29 @@ const selectedDrink = ref(drinkDisplays['Latte'])
   width: 100%;
   flex-direction: row;
   gap: var(--gap-large);
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 .drink-display-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.drink-options-panel {
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 600px) {
+    align-items: center;
+  }
+}
+.drink-options-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 550px;
+  gap: var(--gap-small);
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 }
 .drink-option {
   display: inline-block;
@@ -108,7 +126,7 @@ const selectedDrink = ref(drinkDisplays['Latte'])
   font-size: 0.875rem;
   font-weight: 500;
   padding: 2px 16px;
-  height: 40px;
+  height: 45px;
   width: 120px;
   color: var(--color-text-dark);
   background-color: var(--color-background);
@@ -120,16 +138,4 @@ const selectedDrink = ref(drinkDisplays['Latte'])
   /* TODO: see if they have 'darken() methods to use here' */
   background-color: var(--color-background-darken);
 }
-.drink-options-container {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 550px;
-  gap: var(--gap-small);
-}
 </style>
-<!-- Notes -->
-
-<!-- Design inspiration: -->
-<!-- The drink image was heavily inspired by the design found on this blog post
-https://blog.mistobox.com/espresso-coffee-drinks/ by Tyler Schultz. 
-The artist for the image itself was unlisted.  -->
