@@ -67,6 +67,7 @@ const selectedDrink = ref(drinkDisplays['Latte'])
     </div>
     <div class="drink-options-panel">
       <p>Cafe Drink Options</p>
+      <!-- TODO: break out into child component and use custom events -->
       <div class="drink-options-container">
         <!-- TODO: read more on conditional styling https://vuejs.org/guide/essentials/class-and-style.html -->
         <button

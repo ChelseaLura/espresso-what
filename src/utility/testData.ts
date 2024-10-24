@@ -182,4 +182,20 @@ export const test_drink_recipes: Array<DrinkRecipe> = [
       },
     ],
   },
+  {
+    id: '4e147628-554e-49a2-bdbc-f69b9bd6bd28',
+    name: 'Caffè Corretto',
+    ingredients: [
+      {
+        name: Ingredient.ESPRESSO,
+        portion: 1,
+        order: 1,
+      },
+      {
+        name: Ingredient.GRAPPA,
+        portion: 1,
+        order: 2,
+      },
+    ],
+  },
 ]

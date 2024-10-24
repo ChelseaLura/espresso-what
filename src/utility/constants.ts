@@ -9,6 +9,7 @@ const ESPRESSO_BROWN = '#361A07'
 const MILKY_WHITE = '#FFF9F3'
 const WATER_BLUE = '#C5F1F5'
 const COFFEE_BROWN = '#120902'
+const GRAPPA_HONEY = '#E9C465'
 
 export const INGREDIENT_COLORS: Record<Ingredient, string> = {
   espresso: ESPRESSO_BROWN,
@@ -17,6 +18,7 @@ export const INGREDIENT_COLORS: Record<Ingredient, string> = {
   water: WATER_BLUE,
   'drip-coffee': COFFEE_BROWN,
   'whipped-cream': MILKY_WHITE,
+  grappa: GRAPPA_HONEY,
 }
 
 // TODO: contrast testing
@@ -27,6 +29,7 @@ export const INGREDIENT_TEXT_COLORS: Record<Ingredient, string> = {
   water: ESPRESSO_BROWN,
   'drip-coffee': MILKY_WHITE,
   'whipped-cream': ESPRESSO_BROWN,
+  grappa: ESPRESSO_BROWN,
 }
 
 export const LATTE_DRINK_DISPLAY: DrinkDisplay = {
