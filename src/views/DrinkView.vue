@@ -1,68 +1,47 @@
 <script setup lang="ts">
+import { getDrinkRecipes } from '@/client'
 import DrinkGlass from '@/components/Drinks/DrinkGlass.vue'
-import { INGREDIENT_COLORS, INGREDIENT_TEXT_COLORS } from '@/utility/constants'
-import { test_drink_recipes } from '@/utility/testData'
+import { translateRecipesToDrinkDisplay } from '@/components/Drinks/drinkUtilityMethods'
 import {
-  type DrinkRecipe,
-  type DrinkPart,
-  type DrinkDisplay,
-} from '@/utility/types'
+  DEFAULT_DRINK_DISPLAYS,
+  DEFAULT_RECIPES,
+  LATTE_DRINK_DISPLAY,
+} from '@/utility/constants'
+import type { DrinkDisplay, DrinkRecipe } from '@/utility/types'
+import { ref, onMounted, type Ref } from 'vue'
 
-import { ref } from 'vue'
+const selectedDrink: Ref<DrinkDisplay> = ref(LATTE_DRINK_DISPLAY)
+const recipes: Ref<Array<DrinkRecipe>> = ref(DEFAULT_RECIPES)
+const drinkDisplays: Ref<Record<string, DrinkDisplay>> = ref(
+  DEFAULT_DRINK_DISPLAYS,
+)
+const isLoading = ref(true)
 
-function createDrinkDisplay(
-  drinks: Array<DrinkRecipe>,
-): Record<string, DrinkDisplay> {
-  const drinkDisplays: Record<string, DrinkDisplay> = {}
-  drinks.forEach(drink => {
-    const drinkParts: Array<DrinkPart> = []
-    // TODO: Add more logic to make sure drink cannot be more than 6 parts
-    drink.ingredients.forEach(ingredient => {
-      for (let i = 1; i <= ingredient.portion; i++) {
-        drinkParts.push({
-          name: ingredient.name,
-          color: INGREDIENT_COLORS[ingredient.name],
-          textColor: INGREDIENT_TEXT_COLORS[ingredient.name],
-        })
-      }
-    })
-    if (drinkParts.length > 6) {
-      // TODO: real error handling
-      throw new Error('too many ingredients')
-    }
-    if (drinkParts.length < 6) {
-      for (let i = drinkParts.length; i < 6; i++) {
-        drinkParts.push({
-          name: '',
-          color: 'transparent',
-          textColor: 'transparent',
-        })
-      }
-    }
-    drinkDisplays[drink.name] = {
-      id: drink.id,
-      name: drink.name,
-      drinkParts: drinkParts.reverse(),
-      funFact: drink.funFact ? drink.funFact : '',
-    }
-  })
-  return drinkDisplays
-}
+onMounted(async () => {
+  const drinkRecipeResponse = await getDrinkRecipes()
+  if (drinkRecipeResponse) {
+    recipes.value = drinkRecipeResponse
+    drinkDisplays.value = translateRecipesToDrinkDisplay(recipes.value)
+  }
+  isLoading.value = false
+})
 
 function setDrinkDisplay(drinkName: string) {
-  selectedDrink.value = drinkDisplays[drinkName]
+  if (drinkDisplays.value) {
+    selectedDrink.value = drinkDisplays.value[drinkName]
+  }
 }
-
-const drinkDisplays = createDrinkDisplay(test_drink_recipes)
-const selectedDrink = ref(drinkDisplays['Latte'])
 </script>
 
 <template>
   <!-- TODO: add aria tags and go over accessiibility -->
   <h1>Espresso What???</h1>
-  <div class="page-container">
+  <div v-if="isLoading" class="page-container loading">
+    <p>loading...</p>
+  </div>
+  <div v-else class="page-container">
     <div class="drink-display-container">
-      <h3>{{ selectedDrink.name }}</h3>
+      <h3>{{ selectedDrink?.name }}</h3>
       <DrinkGlass :selected-drink="selectedDrink" />
     </div>
     <div class="drink-options-panel">
@@ -71,10 +50,10 @@ const selectedDrink = ref(drinkDisplays['Latte'])
       <div class="drink-options-container">
         <!-- TODO: read more on conditional styling https://vuejs.org/guide/essentials/class-and-style.html -->
         <button
-          v-for="drink in test_drink_recipes"
+          v-for="drink in recipes"
           :key="drink.id"
           :class="[
-            drink.name === selectedDrink.name ? 'selected-drink-option' : '',
+            drink.name === selectedDrink?.name ? 'selected-drink-option' : '',
             'drink-option',
           ]"
           type="button"
@@ -89,7 +68,9 @@ const selectedDrink = ref(drinkDisplays['Latte'])
 
 <style scoped>
 /* TODO: use space and size reference system and switch to REM for text; */
-
+.loading {
+  align-items: center;
+}
 .page-container {
   display: flex;
   width: 100%;

@@ -26,7 +26,7 @@ function drinkPartClassGenerator(drinkPart: DrinkPart): string {
     <div class="glass internal-glass"></div>
     <div class="part-container">
       <div
-        v-for="(drinkPart, index) in selectedDrink.drinkParts"
+        v-for="(drinkPart, index) in selectedDrink?.drinkParts"
         v-bind:key="index"
         :class="drinkPartClassGenerator(drinkPart)"
         :style="{
@@ -85,7 +85,7 @@ function drinkPartClassGenerator(drinkPart: DrinkPart): string {
 .part-container {
   z-index: 3;
   position: relative;
-  top: 25px;
+  top: 22px;
   left: 63px;
   :last-child {
     border-bottom-left-radius: 10px;
