@@ -5,18 +5,29 @@ in order to learn more about different drinks they could order at a cafe.
 
 #### Story Time
 
-I ordered a cappucino at a cool local coffee shop, and proceeded to scoop the foam off, because I wasn't really a fan.
-This prompted my friend to ask, why I ordered one in the first place, since cappucinos are purposefully made with more foam.
+I ordered a cappuccino at a cool local coffee shop, and proceeded to scoop the foam off, because I wasn't really a fan.
+This prompted my friend to ask, why I ordered one in the first place, since cappuccinos are purposefully made with more foam.
 I was caught red-handed, I had know idea what any of the words on the menu meant, and had just picked one randomly. >\_<
 This app is for past me to understand what all those, mostly Italian, words meant.
 
-## Let's get technical!
+### Let's get technical
 
-I built this project as a showcase of skills to prove I can learn things quickly.
-I haven't written any Vue in over 3 years, and it was in Vue2 back then.
-I've never used many of the tools included, but they were reccomended within Vue's documentation so I wanted to try them out.
-You'll notice from the code there are several arbitrary API calls or added complexity that this app genuinely wouldn't need.
-However in order to show case my understanding of these concepts they are a bit shoe-horned in.
+I've never used almost all of the tools included, but they were recommended within Vue's documentation so I wanted to try them out.
+You'll notice from the code there are arbitrary API calls or added complexity that this app genuinely wouldn't need.
+However in order to showcase my understanding of these concepts they are a bit shoe-horned in.
+
+I didn't get a chance to use Pinia, but I think I could make an overall error handling 'service' with it in the future.
+The Router was built in from create-vue and I didn't get to use it, but I think if I added users/authentication,
+then it could be fun for having a favorite drinks page or creating your own recipes.
+
+### Future work
+
+- Improve tests & error handling
+- Improve drink display styles, and styles in general
+- Add fun facts!
+- Add detailed recipe breakdown
+- Ability for users to create their own drink recipe
+- Add flavor mixins like chocolate, vanilla
 
 ## Default Create-Vue ReadMe:
 
