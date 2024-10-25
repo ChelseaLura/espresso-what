@@ -41,7 +41,7 @@ function drinkPartClassGenerator(drinkPart: DrinkPart): string {
 </template>
 
 <style>
-/* TODO: Look inot issues with absolute positioned styles using 'scoped'*/
+/* TODO: Look into issues with absolute positioned styles using 'scoped'*/
 :root {
   --drink-size: 350px;
   --drink-size-mobile: 260px;
