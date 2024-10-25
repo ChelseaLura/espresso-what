@@ -1,7 +1,8 @@
 # espresso-what
 
-I love coffee, specifically espresso. This application allows users to visualize the different parts of espresso drinks,
-in order to learn more about different drinks they could order at a cafe.
+I love coffee, specifically espresso.
+This application allows users to visualize the different parts of espresso drinks,
+in order to learn more about the different drinks they could order at a cafe.
 
 #### Story Time
 
