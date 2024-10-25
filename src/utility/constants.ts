@@ -111,7 +111,7 @@ export const GET_DRINK_RECIPES_RESPONSE: Array<DrinkRecipe> = [
   },
   {
     id: '7ed6dbc1-bf28-4350-8e80-97d7097b9d0f',
-    name: 'Cappucino',
+    name: 'Cappuccino',
     ingredients: [
       {
         name: Ingredient.ESPRESSO,
