@@ -23,6 +23,7 @@ export const getDrinkRecipes = async (): Promise<
   Array<DrinkRecipe> | undefined
 > => {
   try {
+    console.log('running getDrinkRecipes')
     const response = await fetch(BASE_URL, config)
     if (response.ok) {
       // normally this is where we'd grab a json value from the response but to make things simpler I am just returning our static recipe data

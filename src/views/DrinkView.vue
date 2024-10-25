@@ -67,7 +67,6 @@ function setDrinkDisplay(drinkName: string) {
 </template>
 
 <style scoped>
-/* TODO: use space and size reference system and switch to REM for text; */
 .loading {
   align-items: center;
 }
